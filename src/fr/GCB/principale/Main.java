@@ -22,9 +22,9 @@ public class Main {
 			switch (choix){
 			
 				case 1 :
-					 do { 
+					do { 
 						System.out.print("\nType du compte [Types possibles :" ); 
-						System.out.print("C(ourant), J(oint), E(pargne)] :");
+						System.out.print("C(ourant), J(oint), E(pargne)] :");		
 						typeCompte = lectureClavier.next().toLowerCase().charAt(0);
 					 } while ( typeCompte != 'c' && typeCompte != 'j' && typeCompte != 'e');
 					
@@ -35,24 +35,12 @@ public class Main {
 					 if ( typeCompte == 'e'){
 						System.out.print("Taux de placement : ");
 						taux = lectureClavier.nextFloat();	
-					 }
-					break;
+					 }					
+					 break;
 				
 				case 2 :
-					System.out.println("\n***** 2.AFFIHCER UN COMPTE *****\n");
-					System.out.print("\nSaissisez le numéro du compte : ");
-					long compte = lectureClavier.nextLong();
-								
-					if(compte == numeroCompte)
-						System.out.println("\nLe compte numero : " + numeroCompte
-								+ "\n- est un compte : " + typeCompte
-								+ "\n- à pour actif " + valeur + " €"
-								+ "\n- à un taux de : " + taux +" %");		
-						
-					else 
-						System.out.println("\nCe compte n'existe pas !");
-					
-						
+					afficherCmpte(typeCompte, numeroCompte,  valeur, taux);
+											
 					break;
 				
 				case 3 :
@@ -94,6 +82,23 @@ public class Main {
 		tmp = lectureClavier.nextByte();
 		
 		return tmp;
+	}
+	
+	public static void afficherCmpte(char typeCompte, long numeroCompte,  Double valeur, float taux){
+		System.out.println("\n***** 2.AFFIHCER UN COMPTE *****\n");
+		System.out.print("\nSaissisez le numéro du compte : ");
+		Scanner lectureClavier = new Scanner(System.in);
+		long compte = lectureClavier.nextLong();
+					
+		if(compte == numeroCompte)
+			System.out.println("\nLe compte numero : " + numeroCompte
+					+ "\n- est un compte : " + typeCompte
+					+ "\n- à pour actif " + valeur + " €"
+					+ "\n- à un taux de : " + taux +" %");		
+			
+		else 
+			System.out.println("\nCe compte n'existe pas !");
+		
 	}
 	
 	
