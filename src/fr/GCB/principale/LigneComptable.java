@@ -4,53 +4,61 @@ import java.util.Scanner;
 
 public class LigneComptable {
 		
-	int sCredit, sDebit, valeur;
-	String theme, moyenPaiement, numCompte, date;
+	public double valeur = 0.0d;
+	public String motif = null, modePaiement = null, date = null;
 	
 	Scanner lectureClavier = new Scanner(System.in);
 	
-	public void creerLigne(){
-		System.out.println("Remplir les information ci-dessous.\n");
-		System.out.print("Le numéro du compte concerné : ");
-		numCompte = lectureClavier.next();
+	public void creerLigneComptable(){
 		
-		System.out.print("La somme à créditer (valeur positive) ou à debiter (valeur négative) : ");
+		System.out.print("La somme à créditer (-) ou à debiter (+) : ");
 		valeur = lectureClavier.nextInt();
-		if(valeur > 0) sCredit += valeur;
-		else sDebit += valeur;
 		
 		System.out.print("La date de l'opération (dd/mm/yyyy) : ");
 		date = lectureClavier.next();
 		
 		do{
-			System.out.print("Le motif de l'achat ou la ventes [thème possibles : Salaire, Loyer, Alimentation, Divers] : ");
-			theme = lectureClavier.next();
+			System.out.print("Le motif [Salaire, Loyer, Alimentation, Divers] : ");
+			motif = lectureClavier.next();
 		
-		}while(theme.equalsIgnoreCase("Salaire") && theme.equalsIgnoreCase("Loyer") && theme.equalsIgnoreCase("Alimentation") && theme.equalsIgnoreCase("Divers"));
+		}while(!motif.equalsIgnoreCase("Salaire") && !motif.equalsIgnoreCase("Loyer") && !motif.equalsIgnoreCase("Alimentation") && !motif.equalsIgnoreCase("Divers"));
+		
+		switch (motif){
+			case "salaire" : motif = "Salaire";
+			break;
+			case "loyer" : motif = "Loyer";
+			break;
+			case "alimentation" : motif = "Alimentation";
+			break;
+			case "divers" : motif = "Divers";
+			break;
+		}
 		
 		do{
-			System.out.println("Le mode de paiement [thème possibles : CB, chèque, virement] : ");
-			moyenPaiement = lectureClavier.next().replace('é', 'e');
+			System.out.print("Le mode de paiement [CB, Chèque, Virement] : ");
+			modePaiement = lectureClavier.next().toLowerCase().replace('è', 'e');
 		
-		}while(moyenPaiement.equalsIgnoreCase("CB") && moyenPaiement.equalsIgnoreCase("cheque") && moyenPaiement.equalsIgnoreCase("virement"));
+		}while(!modePaiement.equalsIgnoreCase("cb") && !modePaiement.equalsIgnoreCase("cheque") && !modePaiement.equalsIgnoreCase("virement"));
+		
+		switch (modePaiement){
+		case "cb" : modePaiement = "CB";
+		break;
+		case "cheque" : modePaiement = "Chèque";
+		break;
+		case "virement" : modePaiement = "Virement";
+		break;
+		}
+		
+		
 	}
 	
 	public void afficherLigne(){
-		System.out.print("\nSaissisez la date de l'opération (dd/mm/yyyy) : ");
-
-		String date = lectureClavier.next();
-					
-		if(date.equalsIgnoreCase(this.date)){
-			System.out.println("\nEn date du : " + date);
-			System.out.println("Objet : " + theme);
-			System.out.println("moyen de paiement : " + moyenPaiement);
-			if(valeur > 0) System.out.println("Montant : " + sCredit);
-			else System.out.println("Montant : " + sDebit);
-	
-		}else 
-			System.out.println("\nAucune opératoin à cette date");
 		
-		
+		System.out.println("\nEn date du : " + date);
+		if(valeur > 0) System.out.println("- Montant créditer : " + valeur + "€");
+		else System.out.println("- Montant débiter : " +valeur+ "€");
+		System.out.println("- Motif : " + motif);
+		System.out.println("- Moyen de paiement : " + modePaiement);	
 	}
 	
 	

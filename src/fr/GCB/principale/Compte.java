@@ -3,46 +3,67 @@ package fr.GCB.principale;
 import java.util.Scanner;
 
 public class Compte {
-	String typeCompte, numeroCompte;
-	double valeur;
-	float taux;
+	public String typeCompte, numeroCompte;
+	public double valeur, taux;
+	public int nbLigneCompta;
+	LigneComptable ligne;
 	
 	Scanner lectureClavier = new Scanner(System.in);
 	
 	public void creerCompte(){
 		do { 
 			System.out.print("\nType du compte [Types possibles :" ); 
-			System.out.print("courant, joint, épargne] :");		
-			typeCompte = lectureClavier.nextLine().toLowerCase();
+			System.out.print("Courant, Joint, Epargne] :");		
+			typeCompte = lectureClavier.next().toLowerCase();
 			typeCompte = typeCompte.replace('é', 'e');
-		 } while (typeCompte.equalsIgnoreCase("courant") && typeCompte.equalsIgnoreCase("joint") && typeCompte.equalsIgnoreCase("epargne"));
+		 } while (!typeCompte.equalsIgnoreCase("courant") && !typeCompte.equalsIgnoreCase("joint") && !typeCompte.equalsIgnoreCase("epargne"));
 		
+		switch (typeCompte){
+			case "courant" : typeCompte = "Courant";
+			break;
+			case "joint" : typeCompte = "Joint";
+			break;
+			case "epargne" : typeCompte = "Epargne";
+			break;
+	}
 			System.out.print("\nNuméro du compte : ");
 			numeroCompte = lectureClavier.next();
-			System.out.print("Première valeur créditée : ");
+			System.out.print("Première valeur à créditée : ");
 			valeur = lectureClavier.nextDouble();						
 		 if ( typeCompte.equalsIgnoreCase("epargne")){
 			System.out.print("Taux de placement : ");
-			taux = lectureClavier.nextFloat();	
-		 }
+			taux = lectureClavier.nextDouble();	
+		 };
+
+	}
+	
+	public void creerLigne(){
+		ligne = new LigneComptable();		
+		ligne.creerLigneComptable();
+		nbLigneCompta++;
+		valeur += ligne.valeur;
 	}
 	
 	public void afficherCmpte(){
-		System.out.println("\n***** 2.AFFIHCER UN COMPTE *****\n");
 		System.out.print("\nSaissisez le numéro du compte : ");
 
 		String compte = lectureClavier.next();
 					
-		if(compte.equalsIgnoreCase(numeroCompte))
+		if(compte.equalsIgnoreCase(numeroCompte)){
 			System.out.println("\nLe compte numero : " + numeroCompte
 					+ "\n- est un compte : " + typeCompte
-					+ "\n- à pour actif " + valeur + " €"
-					+ "\n- à un taux de : " + taux +" %");		
-			
-		else 
+					+ "\n- à pour actif " + valeur + " €");
+			//Affiche uniquement si le compte est de type épargne
+			if(typeCompte.equals("epargne"))	System.out.println("\n- à un taux de : " + taux +" %");
+			//Vérifie l'existance d'une ligne comptable et l'affiche
+			if(nbLigneCompta == 1) ligne.afficherLigne();
+								
+		}else {
 			System.out.println("\nCe compte n'existe pas !");
+		}
 		
 	}
 	
+
 
 }
