@@ -5,13 +5,13 @@ import java.util.Scanner;
 public class LigneComptable {
 		
 	public double valeur = 0.0d;
-	public String motif = null, modePaiement = null, date = null;
+	public String motif, modePaiement, date;
 	
 	Scanner lectureClavier = new Scanner(System.in);
 	
 	public void creerLigneComptable(){
 		
-		System.out.print("La somme à créditer (-) ou à debiter (+) : ");
+		System.out.print("La somme à créditer (+) ou à débiter (-) : ");
 		valeur = lectureClavier.nextInt();
 		
 		System.out.print("La date de l'opération (dd/mm/yyyy) : ");

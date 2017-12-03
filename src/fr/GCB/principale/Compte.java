@@ -28,7 +28,7 @@ public class Compte {
 	}
 			System.out.print("\nNuméro du compte : ");
 			numeroCompte = lectureClavier.next();
-			System.out.print("Première valeur à créditée : ");
+			System.out.print("Première valeur à créditer : ");
 			valeur = lectureClavier.nextDouble();						
 		 if ( typeCompte.equalsIgnoreCase("epargne")){
 			System.out.print("Taux de placement : ");

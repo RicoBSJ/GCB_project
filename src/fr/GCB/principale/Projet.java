@@ -1,6 +1,5 @@
 package fr.GCB.principale;
 
-import java.util.Date;
 import java.util.Scanner;
 
 public class Projet {
@@ -57,7 +56,7 @@ public class Projet {
 		System.out.println("\n***** MENU ***** \n");
 		System.out.println("1. Créer un compte");
 		System.out.println("2. Afficher un compte");
-		System.out.println("3. Creer une ligne comptable");
+		System.out.println("3. Créer une ligne comptable");
 		System.out.println("4. Sortir");
 		System.out.println("5. De l'aide");
 		System.out.print("\nVotre choix : ");
