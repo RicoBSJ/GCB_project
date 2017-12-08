@@ -8,9 +8,9 @@ public class Compte {
 	private int nbLigneCompta;
 	LigneComptable ligne;
 	
-	Scanner lectureClavier = new Scanner(System.in);
-	
-	public void creerCompte(){
+	Scanner lectureClavier = new Scanner(System.in);	
+
+	public Compte(){
 		System.out.print("\nType du compte [Types possibles :" ); 
 		typeCompte = controleType();
 		

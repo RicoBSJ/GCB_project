@@ -1,24 +1,23 @@
 package fr.GCB.principale;
 
+import java.text.DateFormat;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class LigneComptable {
 		
-	private String motif, modePaiement, date;
+	private String motif, modePaiement;
 	private double valeur = 0.0d;
-	
+	private LocalDate dateLigne;
 	Scanner lectureClavier = new Scanner(System.in);
 	
 	public void creerLigneComptable(){
-		System.out.println("Indiquez le numéro du compte : ");
-		
-		
+		//Récupere la date 
+		dateLigne = LocalDate.now();
+			
 		System.out.print("La somme à créditer (+) ou à débiter (-) : ");
 		valeur = lectureClavier.nextInt();
-		
-		System.out.print("La date de l'opération (dd/mm/yyyy) : ");
-		date = lectureClavier.next();
-		
+				
 		System.out.print("Le motif ");
 		motif = controleMotif();
 		
@@ -28,7 +27,7 @@ public class LigneComptable {
 	}
 	
 	public void afficherLigne(){		
-		System.out.println("\nEn date du : " + date);
+		System.out.println("\nEn date du " + dateLigne);
 		if(valeur > 0) System.out.println("- Montant créditer : " + valeur + "€");
 		else System.out.println("- Montant débiter : " +valeur+ "€");
 		System.out.println("- Motif : " + motif);
@@ -105,11 +104,8 @@ public class LigneComptable {
 		this.modePaiement = modePaiement;
 	}
 
-	public String getDate() {
-		return date;
+	public DateFormat getDate() {
+		return getDate();
 	}
 
-	public void setDate(String date) {
-		this.date = date;
-	}
 }

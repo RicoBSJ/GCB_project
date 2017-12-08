@@ -9,13 +9,14 @@ public class Projet {
 		
 		Scanner lectureClavier = new Scanner(System.in);
 		Compte C = new Compte();
-		
+
 		do{
+
 			choix = menuPrincipale();		
 			switch (choix){
 			
 				case 1 :
-					C.creerCompte();
+					C = new Compte();
 					 break;
 				
 				case 2 :
