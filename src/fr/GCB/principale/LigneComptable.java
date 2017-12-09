@@ -11,7 +11,7 @@ public class LigneComptable {
 	private LocalDate dateLigne;
 	Scanner lectureClavier = new Scanner(System.in);
 	
-	public void creerLigneComptable(){
+	public LigneComptable(){
 		//Récupere la date 
 		dateLigne = LocalDate.now();
 			
@@ -23,7 +23,6 @@ public class LigneComptable {
 		
 		System.out.print("Le mode ");
 		modePaiement = controleModePaiement();
-		
 	}
 	
 	public void afficherLigne(){		

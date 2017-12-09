@@ -5,19 +5,24 @@ import java.util.Scanner;
 public class Projet {
 	
 	public static void main(String[] args) {
-		byte choix;
+		byte choix;	
+		String tmp,	vide ="";
+		char tmpC;
 		
 		Scanner lectureClavier = new Scanner(System.in);
-		Compte C = new Compte();
+		
+		Compte C = new Compte(vide);
 
 		do{
-
 			choix = menuPrincipale();		
 			switch (choix){
 			
 				case 1 :
-					C = new Compte();
-					 break;
+					System.out.print("\nVoulez vous créez un compte épargne ? (o/n) : ");	
+					tmpC = lectureClavier.next().charAt(0);
+					if(tmpC == 'o') C = new CompteEpargne();
+					else C = new Compte();
+					break;
 				
 				case 2 :
 					System.out.println("\n***** 2.AFFIHCER UN COMPTE *****\n");
@@ -25,8 +30,14 @@ public class Projet {
 					break;
 				
 				case 3 :
-					System.out.println("\n***** 3.CREER UNE LIGNE COMPTABLE *****\n");
-					C.creerLigne();
+					System.out.println("\n***** 3.CREER UNE LIGNE COMPTABLE *****\n");				
+					System.out.print("Veuillez saisir un numéro de compte : ");
+					tmp = lectureClavier.nextLine();
+					if(tmp.equals(C.getNumeroCompte())){ 
+						C.creerLigne();
+					}else{ 
+						System.out.println("\n*** Ce compte n'éxiste pas ! ***");
+					}
 					break;
 				
 				case 4 :

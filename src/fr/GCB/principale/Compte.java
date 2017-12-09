@@ -4,14 +4,14 @@ import java.util.Scanner;
 
 public class Compte {
 	private String typeCompte, numeroCompte;
-	private double valeur, taux;
+	private double valeur;
 	private int nbLigneCompta;
 	LigneComptable ligne;
 	
 	Scanner lectureClavier = new Scanner(System.in);	
 
 	public Compte(){
-		System.out.print("\nType du compte [Types possibles :" ); 
+		System.out.print("\nType du compte " ); 
 		typeCompte = controleType();
 		
 		System.out.print("\nNuméro du compte : ");
@@ -19,40 +19,47 @@ public class Compte {
 		
 		System.out.print("Première valeur à créditer : ");
 		valeur = controleValeur();
-		
-		//Affiche uniquement si le compte est de type épargne
-		if ( typeCompte.equalsIgnoreCase("Epargne")){
-			System.out.print("Taux de placement : ");
-			taux = lectureClavier.nextDouble();	
-		 };
+
+		 nbLigneCompta = 0;
+	}
+	
+	//Construteur default pour compte épargne
+	public Compte(String type){
+		if(type.equals(typeCompte)){
+			this.typeCompte = type;
+			
+			System.out.print("\nNuméro du compte : ");
+			numeroCompte = lectureClavier.next();
+			
+			System.out.print("Première valeur à créditer : ");
+			valeur = controleValeur();
+
+			 nbLigneCompta = 0;
+		}
 	}
 	
 	public void creerLigne(){
 		ligne = new LigneComptable();		
-		ligne.creerLigneComptable();
 		nbLigneCompta++;
 		valeur += ligne.getValeur();
 	}
 	
 	public void afficherCmpte(){
-		System.out.print("\nSaissisez le numéro du compte : ");
-
-		String compte = lectureClavier.next();
-					
-		if(compte.equalsIgnoreCase(numeroCompte)){
-			System.out.println("\nLe compte numero : " + numeroCompte
-					+ "\n- est un compte : " + typeCompte
-					+ "\n- à pour actif " + valeur + " €");
-			
-			//Affiche uniquement si le compte est de type épargne
-			if(typeCompte.equals("Epargne"))	System.out.println("- taux de placement : " + taux +" %");
-			
-			//Vérifie l'existance d'une ligne comptable et l'affiche
-			if(nbLigneCompta == 1) ligne.afficherLigne();
-								
-		}else {
-			System.out.println("\nCe compte n'existe pas !");
-		}
+			System.out.print("\nSaissisez le numéro du compte : ");
+	
+			String compte = lectureClavier.next();
+						
+			if(compte.equalsIgnoreCase(numeroCompte)){
+				System.out.println("\nLe compte numero " + numeroCompte+ " :"
+						+ "\n- est un compte : " + typeCompte
+						+ "\n- à pour actif " + valeur + " €");
+						
+				//Vérifie l'existance d'une ligne comptable et l'affiche
+				if(nbLigneCompta == 1) ligne.afficherLigne();
+									
+			}else {
+				System.out.println("\nCe compte n'existe pas !");
+			}
 		
 	}
 	
@@ -61,17 +68,15 @@ public class Compte {
 		char tmpC;
 		String tmpS = null;
 		do { 
-			System.out.print("(C).courant, (J).joint, (E).épargne] :");		
+			System.out.print("[(C).courant, (J).joint] : ");		
 			tmpC = lectureClavier.next().toUpperCase().charAt(0);
 			
-	    } while (tmpC != 'C' && tmpC != 'J' && tmpC != 'E');
+	    } while (tmpC != 'C' && tmpC != 'J');
 		
 		switch (tmpC){
 			case 'C' : tmpS = "Courant";
 			break;
 			case 'J' : tmpS = "Joint";
-			break;
-			case 'E' : tmpS = "Epargne";
 			break;		
 		}
 		
@@ -82,7 +87,7 @@ public class Compte {
 		double tmpd;
 		do { 
 			tmpd = lectureClavier.nextDouble();
-			if(tmpd < 0) System.out.print("Rentrez une valeur positive :");
+			if(tmpd < 0) System.out.print("Entrez une valeur positive :");
 			
 	    } while (tmpd < 0); 
 		
@@ -114,14 +119,6 @@ public class Compte {
 
 	public void setValeur(double valeur) {
 		this.valeur = valeur;
-	}
-
-	public double getTaux() {
-		return taux;
-	}
-
-	public void setTaux(double taux) {
-		this.taux = taux;
 	}
 
 	public int getNbLigneCompta() {
