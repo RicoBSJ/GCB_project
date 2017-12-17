@@ -5,8 +5,10 @@ import java.util.Scanner;
 public class Compte {
 	private String typeCompte, numeroCompte;
 	private double valeur;
-	private int nbLigneCompta;
-	LigneComptable ligne;
+	private int nbLigneComptaReel;
+	private LigneComptable[] ligne;
+	
+	private static final int NBLigne = 10;
 	
 	Scanner lectureClavier = new Scanner(System.in);	
 
@@ -14,18 +16,19 @@ public class Compte {
 		System.out.print("\nType du compte " ); 
 		typeCompte = controleType();
 		
-		System.out.print("\nNuméro du compte : ");
+		System.out.print("Numéro du compte : ");
 		numeroCompte = lectureClavier.next();
 		
 		System.out.print("Première valeur à créditer : ");
 		valeur = controleValeur();
-
-		 nbLigneCompta = 0;
+		
+		ligne = new LigneComptable[NBLigne];
+		nbLigneComptaReel = -1;;
 	}
 	
 	//Construteur default pour compte épargne
 	public Compte(String type){
-		if(type.equals(typeCompte)){
+		if(type.equals("Epargne")){
 			this.typeCompte = type;
 			
 			System.out.print("\nNuméro du compte : ");
@@ -33,36 +36,39 @@ public class Compte {
 			
 			System.out.print("Première valeur à créditer : ");
 			valeur = controleValeur();
-
-			 nbLigneCompta = 0;
+			
+			ligne = new LigneComptable[NBLigne];
+			nbLigneComptaReel = -1;
 		}
 	}
 	
 	public void creerLigne(){
-		ligne = new LigneComptable();		
-		nbLigneCompta++;
-		valeur += ligne.getValeur();
+		nbLigneComptaReel++;
+		
+		if(nbLigneComptaReel < NBLigne){
+			ligne[nbLigneComptaReel] = new LigneComptable();
+			valeur += ligne[nbLigneComptaReel].getValeur();
+			
+		} else if (nbLigneComptaReel > NBLigne){
+			decalerLigne();
+			ligne[NBLigne-1] = new LigneComptable();
+			valeur += ligne[NBLigne-1].getValeur();
+		}		
 	}
 	
 	public void afficherCmpte(){
-			System.out.print("\nSaissisez le numéro du compte : ");
-	
-			String compte = lectureClavier.next();
-						
-			if(compte.equalsIgnoreCase(numeroCompte)){
-				System.out.println("\nLe compte numero " + numeroCompte+ " :"
-						+ "\n- est un compte : " + typeCompte
-						+ "\n- à pour actif " + valeur + " €");
-						
-				//Vérifie l'existance d'une ligne comptable et l'affiche
-				if(nbLigneCompta == 1) ligne.afficherLigne();
-									
-			}else {
-				System.out.println("\nCe compte n'existe pas !");
+		System.out.println("\nLe compte numero " + numeroCompte+ " :"
+				+ "\n- est un compte : " + typeCompte
+				+ "\n- à pour actif " + valeur + " €");				
+		//Vérifie l'existance d'une ligne comptable et l'affiche
+		if(nbLigneComptaReel >= 0) {	
+			for (int i = 1; i <= nbLigneComptaReel; i++) {
+				ligne[i-1].afficherLigne();
 			}
-		
+		}
+			
 	}
-	
+
 	//Méthodes de controle de saisie
 	private String controleType(){
 		char tmpC;
@@ -94,8 +100,17 @@ public class Compte {
 		return tmpd;			
 	}
 	
+	//Quand le nb de ligne atteint NBLigne la premiere ligne s'éfface et les suivantes ce décalent pour laisser la place.
+	private void decalerLigne(){
+		for (int i = 1; i < NBLigne; i++) {
+			ligne[i-1] = ligne[i];
+		}
+	}
 
 	////guetteur/setteur
+	public int getNbLigneComptaReel() {
+		return nbLigneComptaReel;
+	}
 	
 	public String getTypeCompte() {
 		return typeCompte;
@@ -120,16 +135,5 @@ public class Compte {
 	public void setValeur(double valeur) {
 		this.valeur = valeur;
 	}
-
-	public int getNbLigneCompta() {
-		return nbLigneCompta;
-	}
-
-	public void setNbLigneCompta(int nbLigneCompta) {
-		this.nbLigneCompta = nbLigneCompta;
-	}
-
-	
-
 
 }

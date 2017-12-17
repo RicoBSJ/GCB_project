@@ -23,8 +23,7 @@ public class CompteEpargne extends Compte {
 			
 	    } while (tmpd < 0); 
 		
-		return tmpd;			
-		
+		return tmpd;					
 	}
 	
 }

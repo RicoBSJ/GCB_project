@@ -25,7 +25,7 @@ public class LigneComptable {
 		modePaiement = controleModePaiement();
 	}
 	
-	public void afficherLigne(){		
+	public void afficherLigne(){
 		System.out.println("\nEn date du " + dateLigne);
 		if(valeur > 0) System.out.println("- Montant créditer : " + valeur + "€");
 		else System.out.println("- Montant débiter : " +valeur+ "€");
