@@ -47,24 +47,22 @@ public class Compte {
 		
 		if(nbLigneComptaReel < NBLigne){
 			ligne[nbLigneComptaReel] = new LigneComptable();
-			valeur += ligne[nbLigneComptaReel].getValeur();
 			
 		} else if (nbLigneComptaReel > NBLigne){
+			nbLigneComptaReel--;
 			decalerLigne();
-			ligne[NBLigne-1] = new LigneComptable();
-			valeur += ligne[NBLigne-1].getValeur();
+			ligne[nbLigneComptaReel] = new LigneComptable();
 		}		
+		valeur += ligne[nbLigneComptaReel].getValeur();
 	}
 	
 	public void afficherCmpte(){
 		System.out.println("\nLe compte numero " + numeroCompte+ " :"
 				+ "\n- est un compte : " + typeCompte
-				+ "\n- à pour actif " + valeur + " €");				
+				+ "\n- à pour actif " + valeur + " €");
 		//Vérifie l'existance d'une ligne comptable et l'affiche
 		if(nbLigneComptaReel >= 0) {	
-			for (int i = 1; i <= nbLigneComptaReel; i++) {
-				ligne[i-1].afficherLigne();
-			}
+			for (int i = 0; i <= nbLigneComptaReel; i++) ligne[i].afficherLigne();
 		}
 			
 	}

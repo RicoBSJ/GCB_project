@@ -9,8 +9,7 @@ public class CompteEpargne extends Compte {
 	}
 	
 	public void afficherCompte(){
-		super.afficherCmpte();
-		System.out.println("Le taux d'épargne du compte est " +taux+ "%.");		
+		super.afficherCmpte();		
 	}
 	
 	//Methode controle de saisi
@@ -24,6 +23,10 @@ public class CompteEpargne extends Compte {
 	    } while (tmpd < 0); 
 		
 		return tmpd;					
+	}
+
+	public double getTaux() {
+		return taux;
 	}
 	
 }
